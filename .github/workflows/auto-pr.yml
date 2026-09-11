@@ -1,0 +1,27 @@
+name: Auto PR on MLOPS commit
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  check-commit-and-create-pr:
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, 'MLOPS')
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
+          branch: ${{ github.ref_name }}
+          title: "Auto PR: ${{ github.event.head_commit.message }}"
+          body: |
+            Pull Request generado automáticamente porque el commit contenía la palabra **MLOPS**.
+            Commit: ${{ github.sha }}
+          labels: automated-pr
