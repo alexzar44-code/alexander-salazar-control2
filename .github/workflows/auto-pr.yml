@@ -1,5 +1,4 @@
 name: Auto PR on MLOPS commit
-
 on:
   push:
     branches-ignore:
