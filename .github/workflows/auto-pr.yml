@@ -1,4 +1,3 @@
-yaml
 name: Auto PR on MLOPS commit
 
 on:
